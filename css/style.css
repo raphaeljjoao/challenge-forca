@@ -47,7 +47,7 @@ button {
     width: 30vw;
     outline: none;
     border: none;
-    padding: 10px 15px;
+    padding: 20px 15px;
     font-size: 1.35em;
     color: white;
 
@@ -63,9 +63,9 @@ button:hover {
 #iniciar-jogo { margin-bottom: 40px; }
 
 input {
-    outline: none;
+    outline: 1px solid black;
     border: none;
-    width: 30vw;
+    width: 50vw;
     height: 15vh;
     font-size: 1.35em;
     margin-bottom: 20px;
