@@ -4,8 +4,12 @@ const ctx = canvas.getContext('2d');
 const canvasWidth = canvas.clientWidth;
 const canvasHeight = canvas.clientHeight;
 
-ctx.fillStyle = '#F3F5FC';
-ctx.fillRect(0, 0, 900, 600);
+
+const pintaBackground = () => {
+    ctx.fillStyle = '#F3F5FC';
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+}
+pintaBackground();
 
 /* Constantes */
 

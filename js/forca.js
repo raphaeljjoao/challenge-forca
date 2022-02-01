@@ -6,15 +6,15 @@ const btnAddPalavra = document.getElementById('add-palavra');
 const palavras = [
     'HTML',
     'CSS',
-    'Java',
+    'JAVA',
     'JS',
-    'Alura',
-    'One',
-    'Oracle',
-    'GitHub'
+    'ALURA',
+    'ONE',
+    'ORACLE',
+    'GITHUB'
 ]
 
-const funcoesErros = [
+const funcoesDesenho = [
     desenhaCabeca,
     desenhaCorpo,
     desenhaPernaEsquerda,
@@ -26,6 +26,7 @@ const funcoesErros = [
 let jogoIniciado = false;
 let palavra;
 let numAcertos = 0;
+let acertos = [];
 let erros = [];
 
 /* Funções */
@@ -33,9 +34,13 @@ const sorteiaPalavra = () => palavras[Math.round(Math.random() * 100 % (palavras
 const iniciaJogo = () => {
     if (jogoIniciado) return;
 
+    /* Reset */
+    pintaBackground();
+    numAcertos = 0;
+    acertos = [];
+    erros = [];
 
-    // palavra = sorteiaPalavra();
-    palavra = 'JS';
+    palavra = sorteiaPalavra();
     jogoIniciado = true;
     desenhaBase();
     desenhaCampos(palavra.length);
@@ -43,9 +48,12 @@ const iniciaJogo = () => {
 
 const analisaChute = (letra) => {
     let ocorrencias = (palavra.match(new RegExp(letra, 'gi'))||[]).length;
-    if (ocorrencias > 0) escrevenumAcertos(letra);
+    if (ocorrencias > 0){
+        escrevenumAcertos(letra);
+        acertos.push(letra);
+    }
     else {
-        let desenhoAtual = funcoesErros[erros.length];
+        let desenhoAtual = funcoesDesenho[erros.length];
         desenhoAtual();
         erros.push(letra);
     }
@@ -54,7 +62,7 @@ const analisaChute = (letra) => {
 
 
     if (numAcertos === palavra.length) ganharJogo();
-    if (erros.length >= funcoesErros.length) perderJogo();
+    if (erros.length >= funcoesDesenho.length) perderJogo();
 };
 
 const escrevenumAcertos = (letra) => {
@@ -67,12 +75,13 @@ const capturaTeclado = (evento) => {
     if (!jogoIniciado) return;
     let keyCode = evento.keyCode;
     let letra = String.fromCharCode(keyCode);
-    if (keyCode >= 65 && keyCode <= 90 && !erros.includes(letra)){
-        analisaChute(letra);
-    }
+    let tentativas = acertos.concat(erros);
+    console.log(tentativas);
+    if (keyCode >= 65 && keyCode <= 90 && !tentativas.includes(letra)) analisaChute(letra);
 };
 
 const ganharJogo = () => {
+    jogoIniciado = false;
     let x = canvasWidth * 0.6;
     ctx.font = '35px Arial'
     ctx.fillStyle = '#0A3871';
@@ -81,6 +90,7 @@ const ganharJogo = () => {
 };
 
 const perderJogo = () => {
+    jogoIniciado = false;
     let x = canvasWidth * 0.6;
     ctx.font = '35px Arial'
     ctx.fillStyle = '#BD1E15';
@@ -89,7 +99,7 @@ const perderJogo = () => {
 };
 
 const addNovaPalavra = () => {
-    let novaPalavra = inputNovaPalavra.value;
+    let novaPalavra = inputNovaPalavra.value.toUpperCase();
     if (palavras.includes(novaPalavra) || novaPalavra.length > maxLetras || novaPalavra === '') return;
     palavras.push(novaPalavra);
     inputNovaPalavra.value = '';
