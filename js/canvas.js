@@ -14,6 +14,9 @@ pintaBackground();
 /* Constantes */
 
 const corBoneco = 'black';
+const corAcerto = '#0A3871';
+const corErro = '#BD1E15';
+
 const canvasFont = '20px Arial';
 const raioCabeca = 35;
 const maxLetras = 7;
@@ -106,6 +109,47 @@ function escrevePalavra(palavra){
     for (let i = 0; i < tamanhoPalavra; i++) escreveLetra(palavra[i], i);
 }
 
+function desenhaCaixaErros(){
+    let x = canvasWidth * 0.44;
+    let y = canvasHeight / 2.3;
+    //ctx.strokeStyle = corErro;
+    ctx.rect(x, y, canvasWidth / 2, canvasHeight /6);
+    ctx.stroke();
+    
+    ctx.fontStyle = '35px Arial';
+    ctx.fillText('Erros', x + canvasWidth / 4.6, y - canvasHeight / 20);
+}
+
+function escreveErro(letra, numCampo){
+    let extensao = numCampo <= 9 ? numCampo : numCampo - 9;
+    let x = canvasWidth * 0.44 + canvasWidth / 20 * extensao;
+    let y = numCampo <= 9 ? canvasHeight / 2 : canvasHeight / 1.8;
+    ctx.fillStyle = corErro;
+    ctx.font = canvasFont;
+    ctx.fillText(letra.toUpperCase(), x, y);
+}
+
+// escreveErro('A', 1);
+// escreveErro('B', 2);
+// escreveErro('C', 3);
+// escreveErro('D', 4);
+// escreveErro('E', 5);
+// escreveErro('F', 6);
+// escreveErro('G', 7);
+// escreveErro('H', 8);
+// escreveErro('I', 9);
+// escreveErro('J', 10);
+// escreveErro('K', 11);
+// escreveErro('L', 12);
+// escreveErro('M', 13);
+// escreveErro('N', 14);
+// escreveErro('O', 15);
+// escreveErro('P', 16);
+// escreveErro('Q', 17);
+// escreveErro('R', 18);
+// desenhaCaixaErros();
+
+// desenhaBase();
 // desenhaCabeca();
 // desenhaCorpo();
 // desenhaPernaEsquerda();

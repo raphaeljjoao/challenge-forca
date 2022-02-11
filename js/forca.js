@@ -56,6 +56,10 @@ const analisaChute = (letra) => {
         let desenhoAtual = funcoesDesenho[erros.length];
         desenhoAtual();
         erros.push(letra);
+
+        // Campo de erros
+        if (erros.length === 1) desenhaCaixaErros();
+        escreveErro(letra, erros.length);
     }
     numAcertos += ocorrencias;
 
@@ -84,7 +88,7 @@ const ganharJogo = () => {
     jogoIniciado = false;
     let x = canvasWidth * 0.6;
     ctx.font = '35px Arial'
-    ctx.fillStyle = '#0A3871';
+    ctx.fillStyle = corAcerto;
     ctx.fillText('Você venceu!', x, canvasHeight / 7);
     ctx.fillText('Parabéns!', x + x/17, canvasHeight / 5);
 };
@@ -93,7 +97,7 @@ const perderJogo = () => {
     jogoIniciado = false;
     let x = canvasWidth * 0.6;
     ctx.font = '35px Arial'
-    ctx.fillStyle = '#BD1E15';
+    ctx.fillStyle = corErro;
     ctx.fillText('Você perdeu.', x, canvasHeight / 7);
     ctx.fillText('Tente mais uma vez!', x - x/10, canvasHeight / 5);
 };
